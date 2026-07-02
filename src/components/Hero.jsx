@@ -189,7 +189,7 @@ export default function Hero() {
                 py: { xs: 1.75, md: 2 },
                 fontSize: { xs: '0.95rem', md: '1rem' },
                 fontWeight: 700,
-                borderRadius: '8px',
+                borderRadius: '100px',
                 boxShadow: '0 8px 25px rgba(21, 101, 192, 0.4)',
                 textTransform: 'none',
                 transition: 'all 0.3s ease',
@@ -216,7 +216,7 @@ export default function Hero() {
                 py: { xs: 1.75, md: 2 },
                 fontSize: { xs: '0.95rem', md: '1rem' },
                 fontWeight: 600,
-                borderRadius: '8px',
+                borderRadius: '100px',
                 textTransform: 'none',
                 transition: 'all 0.3s ease',
                 '&:hover': {

@@ -64,7 +64,7 @@ export default function Navbar() {
           </a>
           <a
             href="#contact"
-            className="inline-flex items-center gap-2 bg-blue hover:bg-blue/90 text-white px-6 py-3 rounded-lg font-semibold shadow-md hover:shadow-lg transition-smooth hover:scale-105 text-sm animate-fade-in-right"
+            className="inline-flex items-center gap-2 bg-blue hover:bg-blue/90 text-white px-6 py-3 rounded-full font-semibold shadow-md hover:shadow-lg transition-smooth hover:scale-105 text-sm animate-fade-in-right"
           >
             Get Free Quote
           </a>
@@ -97,7 +97,7 @@ export default function Navbar() {
           <a
             href="#contact"
             onClick={() => setOpen(false)}
-            className="mt-4 inline-flex w-full justify-center items-center gap-2 bg-blue text-white px-6 py-4 rounded-lg font-semibold shadow-md transition-smooth hover:bg-blue/90 animate-fade-in-up"
+            className="mt-4 inline-flex w-full justify-center items-center gap-2 bg-blue text-white px-6 py-4 rounded-full font-semibold shadow-md transition-smooth hover:bg-blue/90 animate-fade-in-up"
           >
             Get Free Quote
           </a>

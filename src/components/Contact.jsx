@@ -331,19 +331,20 @@ export default function Contact() {
                 endIcon={<SendIcon />}
                 sx={{
                   mt: 4,
-                  bgcolor: '#1565C0',
-                  color: 'white',
-                  px: 5,
-                  py: 1.8,
-                  fontSize: '1rem',
+                  bgcolor: '#E3F2FD',
+                  color: '#1565C0',
+                  px: 6,
+                  py: 2,
+                  fontSize: '1.1rem',
                   fontWeight: 700,
-                  borderRadius: '50px',
+                  borderRadius: '100px',
                   textTransform: 'none',
-                  boxShadow: '0 8px 24px rgba(21, 101, 192, 0.3)',
+                  boxShadow: 'none',
+                  border: 'none',
                   '&:hover': {
-                    bgcolor: '#0B3D5F',
-                    transform: 'translateY(-4px)',
-                    boxShadow: '0 12px 32px rgba(21, 101, 192, 0.4)',
+                    bgcolor: '#BBDEFB',
+                    transform: 'translateY(-2px)',
+                    boxShadow: '0 4px 12px rgba(21, 101, 192, 0.15)',
                   },
                 }}
               >

@@ -89,12 +89,13 @@ const theme = createTheme({
     },
   },
   shape: {
-    borderRadius: 8,
+    borderRadius: 20,
   },
   components: {
     MuiButton: {
       styleOverrides: {
         root: {
+          borderRadius: '15px',
           textTransform: 'uppercase',
           fontWeight: 700,
           letterSpacing: '0.18em',
