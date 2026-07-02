@@ -1,240 +1,247 @@
-import React from 'react'
-import { Box, Container, Typography, Grid, Card, CardContent, Avatar, Chip } from '@mui/material'
+import React, { useRef, useState, useEffect } from 'react'
+import { Box, Container, Typography, Grid, Chip } from '@mui/material'
 import { services } from '../data/content'
 import { Icon } from './Icon'
 
 export default function Services() {
+  const [visible, setVisible] = useState(false)
+  const ref = useRef(null)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setVisible(true) },
+      { threshold: 0.1 }
+    )
+    if (ref.current) observer.observe(ref.current)
+    return () => observer.disconnect()
+  }, [])
+
   return (
-    <Box 
-      component="section" 
-      id="services" 
-      sx={{ 
-        bgcolor: '#F8FAFC',
-        py: { xs: 10, md: 14 },
+    <Box
+      ref={ref}
+      component="section"
+      id="services"
+      sx={{
         position: 'relative',
         overflow: 'hidden',
-        '&::before': {
-          content: '""',
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          height: '1px',
-          background: 'linear-gradient(90deg, transparent, #0B3D5F33, transparent)',
-        },
+        py: { xs: 10, md: 16 },
+        background: 'linear-gradient(180deg, #050D1A 0%, #0A1929 50%, #0A2540 100%)',
       }}
     >
-      {/* Animated background shapes */}
-      <Box
-        sx={{
-          position: 'absolute',
-          top: '10%',
-          left: '-5%',
-          width: '300px',
-          height: '300px',
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(79, 195, 247, 0.1), transparent 70%)',
-          animation: 'float 8s ease-in-out infinite',
-          pointerEvents: 'none',
-        }}
-      />
-      <Box
-        sx={{
-          position: 'absolute',
-          bottom: '10%',
-          right: '-5%',
-          width: '400px',
-          height: '400px',
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(21, 101, 192, 0.08), transparent 70%)',
-          animation: 'float 10s ease-in-out infinite reverse',
-          pointerEvents: 'none',
-        }}
-      />
+      {/* Background animated elements */}
+      <Box sx={{
+        position: 'absolute', top: '5%', left: '-5%',
+        width: '400px', height: '400px', borderRadius: '50%',
+        background: 'radial-gradient(circle, rgba(79, 195, 247, 0.07), transparent 70%)',
+        filter: 'blur(80px)', animation: 'float 12s ease-in-out infinite',
+        pointerEvents: 'none',
+      }} />
+      <Box sx={{
+        position: 'absolute', bottom: '5%', right: '-5%',
+        width: '350px', height: '350px', borderRadius: '50%',
+        background: 'radial-gradient(circle, rgba(21, 101, 192, 0.1), transparent 70%)',
+        filter: 'blur(60px)', animation: 'float 10s ease-in-out infinite reverse',
+        pointerEvents: 'none',
+      }} />
 
-      <Container maxWidth="lg">
-        <Box sx={{ mb: 8, textAlign: 'center' }}>
-          <Chip
-            label="What We Do"
+      {/* Ghost grid */}
+      <Box sx={{
+        position: 'absolute', inset: 0, opacity: 0.2, pointerEvents: 'none',
+        backgroundImage: 'linear-gradient(rgba(79,195,247,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(79,195,247,0.06) 1px, transparent 1px)',
+        backgroundSize: '60px 60px',
+      }} />
+
+      <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
+        {/* Header */}
+        <Box
+          sx={{
+            mb: 8, textAlign: 'center',
+            opacity: visible ? 1 : 0,
+            transform: visible ? 'translateY(0)' : 'translateY(30px)',
+            transition: 'all 0.8s cubic-bezier(0.25, 1, 0.5, 1)',
+          }}
+        >
+          <Box
             sx={{
-              bgcolor: '#E3F2FD',
-              color: '#1565C0',
-              fontWeight: 700,
-              fontSize: '0.875rem',
-              mb: 2,
-              px: 1,
-              animation: 'fadeInDown 0.6s ease-out',
-            }}
-          />
-          <Typography 
-            variant="h2" 
-            sx={{ 
-              mb: 2, 
-              color: '#0B3D5F',
-              fontWeight: 800,
-              animation: 'fadeInUp 0.6s ease-out 0.2s both',
+              display: 'inline-flex', alignItems: 'center', gap: 1,
+              px: 2, py: 0.75, borderRadius: '100px', mb: 3,
+              background: 'rgba(79, 195, 247, 0.08)',
+              border: '1px solid rgba(79, 195, 247, 0.25)',
             }}
           >
-            Services Built Around Your Project
+            <Box sx={{ width: 6, height: 6, borderRadius: '50%', bgcolor: '#4FC3F7', animation: 'pulse 2s ease-in-out infinite' }} />
+            <Typography sx={{ color: '#4FC3F7', fontSize: '0.72rem', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase' }}>
+              What We Do
+            </Typography>
+          </Box>
+
+          <Typography
+            variant="h2"
+            sx={{
+              mb: 2.5, fontWeight: 800, color: '#FFFFFF',
+              fontSize: { xs: '2rem', md: '2.75rem' },
+              lineHeight: 1.2,
+            }}
+          >
+            Services Built Around{' '}
+            <Box component="span" sx={{
+              background: 'linear-gradient(135deg, #4FC3F7 0%, #1565C0 60%, #4FC3F7 100%)',
+              backgroundSize: '200% auto',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+              animation: 'gradientShift 4s linear infinite',
+            }}>
+              Your Project
+            </Box>
           </Typography>
-          <Typography 
-            variant="body1" 
-            sx={{ 
-              color: '#64748B', 
-              maxWidth: '42rem',
-              margin: '0 auto',
-              fontSize: '1.1rem',
-              animation: 'fadeInUp 0.6s ease-out 0.4s both',
-            }}
-          >
+          <Typography sx={{
+            color: 'rgba(255,255,255,0.55)', maxWidth: '42rem',
+            margin: '0 auto', fontSize: '1.05rem', lineHeight: 1.75,
+          }}>
             Coordinating reliable trades for residential and commercial projects — from a single
             repair to a complete renovation.
           </Typography>
         </Box>
 
+        {/* Services Grid */}
         <Grid container spacing={3}>
           {services.map((service, index) => (
             <Grid item xs={12} sm={6} lg={4} key={service.ref}>
-              <Card
+              <Box
+                className="card-tilt"
                 sx={{
                   height: '100%',
-                  border: 'none',
-                  borderRadius: '16px',
-                  bgcolor: '#F0F7FF',
-                  boxShadow: '0 4px 20px rgba(11, 61, 95, 0.08)',
-                  transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-                  animation: 'scaleIn 0.6s ease-out',
-                  animationDelay: `${index * 0.15}s`,
-                  animationFillMode: 'both',
+                  borderRadius: '20px',
+                  background: 'rgba(255,255,255,0.03)',
+                  border: '1px solid rgba(79, 195, 247, 0.1)',
                   position: 'relative',
                   overflow: 'hidden',
+                  cursor: 'default',
+                  p: 4,
+                  transition: 'all 0.4s cubic-bezier(0.25, 1, 0.5, 1)',
+                  opacity: visible ? 1 : 0,
+                  transform: visible ? 'translateY(0)' : 'translateY(40px)',
+                  transitionDelay: `${0.1 + index * 0.1}s`,
+                  '&:hover': {
+                    border: '1px solid rgba(79, 195, 247, 0.3)',
+                    background: 'rgba(21, 101, 192, 0.08)',
+                    boxShadow: '0 25px 60px rgba(5,13,26,0.5), 0 0 30px rgba(79,195,247,0.1)',
+                  },
                   '&::before': {
                     content: '""',
                     position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    height: '4px',
+                    top: 0, left: 0, right: 0,
+                    height: '3px',
                     background: 'linear-gradient(90deg, #1565C0, #4FC3F7)',
                     transform: 'scaleX(0)',
                     transformOrigin: 'left',
-                    transition: 'transform 0.4s ease',
+                    transition: 'transform 0.5s ease',
                   },
-                  '&::after': {
-                    content: '""',
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    background: 'radial-gradient(circle at top right, rgba(79, 195, 247, 0.05), transparent 60%)',
-                    opacity: 0,
-                    transition: 'opacity 0.4s ease',
+                  '&:hover::before': {
+                    transform: 'scaleX(1)',
                   },
-                  '&:hover': {
-                    transform: 'translateY(-12px) scale(1.02)',
-                    boxShadow: '0 20px 50px rgba(11, 61, 95, 0.2)',
-                    '&::before': {
-                      transform: 'scaleX(1)',
-                    },
-                    '&::after': {
-                      opacity: 1,
-                    },
-                    '& .service-icon': {
-                      transform: 'scale(1.15) rotate(10deg)',
-                      bgcolor: '#1565C0',
-                      color: 'white',
-                      boxShadow: '0 8px 20px rgba(21, 101, 192, 0.3)',
-                    },
+                  '&:hover .svc-icon': {
+                    background: 'linear-gradient(135deg, #1565C0, #4FC3F7) !important',
+                    transform: 'scale(1.1) rotate(8deg)',
+                    boxShadow: '0 8px 25px rgba(21, 101, 192, 0.4)',
+                  },
+                  '&:hover .svc-icon svg': {
+                    color: 'white',
                   },
                 }}
               >
-                <CardContent sx={{ p: 4, position: 'relative', zIndex: 1 }}>
-                  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 3 }}>
-                    <Avatar
-                      className="service-icon"
-                      sx={{
-                        width: 56,
-                        height: 56,
-                        bgcolor: '#E3F2FD',
-                        color: '#1565C0',
-                        transition: 'all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)',
-                        animation: 'iconBounce 2s ease-in-out infinite',
-                        animationDelay: `${index * 0.2}s`,
-                      }}
-                    >
-                      <Icon name={service.icon} className="w-6 h-6" />
-                    </Avatar>
+                {/* Ghost number */}
+                <Box sx={{
+                  position: 'absolute',
+                  top: -10, right: 15,
+                  fontSize: '5rem',
+                  fontWeight: 900,
+                  color: 'transparent',
+                  WebkitTextStroke: '1px rgba(79, 195, 247, 0.06)',
+                  lineHeight: 1,
+                  userSelect: 'none',
+                  pointerEvents: 'none',
+                  fontFamily: '"Poppins", sans-serif',
+                }}>
+                  {String(index + 1).padStart(2, '0')}
+                </Box>
+
+                {/* Icon */}
+                <Box sx={{ mb: 3, display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
+                  <Box
+                    className="svc-icon"
+                    sx={{
+                      width: 58,
+                      height: 58,
+                      borderRadius: '14px',
+                      background: 'rgba(21, 101, 192, 0.15)',
+                      border: '1px solid rgba(79, 195, 247, 0.2)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      transition: 'all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)',
+                      '& svg': { color: '#4FC3F7', transition: 'color 0.3s ease' },
+                    }}
+                  >
+                    <Icon name={service.icon} className="w-6 h-6" />
                   </Box>
-                  <Typography 
-                    variant="h5" 
-                    sx={{ 
-                      color: '#0B3D5F', 
-                      mb: 1.5,
-                      fontWeight: 700,
-                      fontSize: '1.25rem',
-                      transition: 'color 0.3s ease',
-                    }}
-                  >
-                    {service.title}
-                  </Typography>
-                  <Typography 
-                    variant="body2" 
-                    sx={{ 
-                      color: '#64748B',
-                      lineHeight: 1.7,
-                      fontSize: '0.95rem',
-                    }}
-                  >
-                    {service.description}
-                  </Typography>
-                </CardContent>
-              </Card>
+                </Box>
+
+                {/* Title */}
+                <Typography
+                  sx={{
+                    color: '#FFFFFF',
+                    mb: 1.5,
+                    fontWeight: 700,
+                    fontSize: '1.15rem',
+                    fontFamily: '"Poppins", sans-serif',
+                    lineHeight: 1.3,
+                  }}
+                >
+                  {service.title}
+                </Typography>
+
+                {/* Description */}
+                <Typography sx={{
+                  color: 'rgba(255,255,255,0.5)',
+                  lineHeight: 1.75,
+                  fontSize: '0.9rem',
+                }}>
+                  {service.description}
+                </Typography>
+
+                {/* Bottom accent line (shimmer) */}
+                <Box sx={{
+                  position: 'absolute',
+                  bottom: 0, left: 0, right: 0, height: '1px',
+                  background: 'linear-gradient(90deg, transparent, rgba(79,195,247,0.2), transparent)',
+                }} />
+              </Box>
             </Grid>
           ))}
         </Grid>
       </Container>
 
       <style>{`
-        @keyframes fadeInUp {
-          from { opacity: 0; transform: translateY(30px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fadeInDown {
-          from { opacity: 0; transform: translateY(-30px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes scaleIn {
-          0% { 
-            opacity: 0; 
-            transform: scale(0.8) translateY(30px); 
-          }
-          60% {
-            transform: scale(1.05) translateY(-5px);
-          }
-          100% { 
-            opacity: 1; 
-            transform: scale(1) translateY(0); 
-          }
+        @keyframes gradientShift {
+          0% { background-position: 0% center; }
+          50% { background-position: 100% center; }
+          100% { background-position: 0% center; }
         }
         @keyframes float {
-          0%, 100% { 
-            transform: translate(0, 0) scale(1); 
-          }
-          33% { 
-            transform: translate(30px, -30px) scale(1.05); 
-          }
-          66% { 
-            transform: translate(-20px, 20px) scale(0.95); 
-          }
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-20px); }
         }
-        @keyframes iconBounce {
-          0%, 100% { 
-            transform: translateY(0); 
-          }
-          50% { 
-            transform: translateY(-5px); 
-          }
+        @keyframes pulse {
+          0%, 100% { opacity: 1; transform: scale(1); }
+          50% { opacity: 0.6; transform: scale(1.2); }
+        }
+        .card-tilt {
+          transform-style: preserve-3d;
+        }
+        .card-tilt:hover {
+          transform: perspective(1000px) rotateX(-3deg) rotateY(3deg) translateY(-8px);
         }
       `}</style>
     </Box>
