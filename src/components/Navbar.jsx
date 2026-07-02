@@ -80,7 +80,7 @@ export default function Navbar() {
       </div>
 
       {open && (
-        <div className="lg:hidden bg-white border-t border-navy/10 px-5 pb-6 pt-4 shadow-xl animate-slide-in-down">
+        <div className="lg:hidden fixed left-0 right-0 bg-white border-t border-navy/10 px-5 pb-6 pt-4 shadow-xl animate-slide-in-down max-h-[calc(100vh-80px)] overflow-y-auto" style={{ top: scrolled ? '68px' : '80px' }}>
           <nav className="flex flex-col gap-2">
             {navLinks.map((link, i) => (
               <a
